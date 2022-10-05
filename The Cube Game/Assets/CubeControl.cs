@@ -40,8 +40,10 @@ public class CubeControl : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.LeftArrow))
             transform.Rotate(Vector3.down,turningSpeed * Time.deltaTime);
+
         if (Input.GetKey(KeyCode.RightArrow))
             transform.Rotate(Vector3.up, turningSpeed * Time.deltaTime);
+
         if (Input.GetKeyDown(KeyCode.Space))
             ourRigidBody.AddForce(Vector3.up*300);
 
