@@ -5,10 +5,14 @@ using UnityEngine;
 public class CubeControl : MonoBehaviour
 {
     private float turningSpeed = 180;
+    bool allowJump = true;
     Rigidbody ourRigidBody;
     private void OnCollisionEnter(Collision collision)
     {
-      // collision.transform.position += Vector3.down;
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            allowJump = true;
+        }
     }
 
     // Start is called before the first frame update
@@ -38,14 +42,16 @@ public class CubeControl : MonoBehaviour
         { 
             transform.position += Vector3.right * Time.deltaTime * 2;
         }
-        if (Input.GetKey(KeyCode.LeftArrow))
-            transform.Rotate(Vector3.down,turningSpeed * Time.deltaTime);
+        //if (Input.GetAxis("Mouse X") < 0)
+            transform.Rotate(Vector3.down,turningSpeed * Time.deltaTime * 5);
 
-        if (Input.GetKey(KeyCode.RightArrow))
-            transform.Rotate(Vector3.up, turningSpeed * Time.deltaTime);
+        //if (Input.GetAxis("Mouse X") > 0)
+            transform.Rotate(Vector3.up, turningSpeed * Time.deltaTime * 5);
 
-        if (Input.GetKeyDown(KeyCode.Space))
-            ourRigidBody.AddForce(Vector3.up*300);
-
-}
+        if (Input.GetKeyDown(KeyCode.Space)&&allowJump)
+        {
+            ourRigidBody.AddForce(Vector3.up * 300);
+            allowJump = false;
+        }
+    }
 }
