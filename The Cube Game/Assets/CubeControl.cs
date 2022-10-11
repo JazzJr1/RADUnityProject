@@ -5,6 +5,7 @@ using UnityEngine;
 public class CubeControl : MonoBehaviour
 {
     private float turningSpeed = 180;
+    public float movementSpeed = 2.0f;
     bool allowJump = true;
     Rigidbody ourRigidBody;
     private void OnCollisionEnter(Collision collision)
@@ -28,25 +29,25 @@ public class CubeControl : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W))
         {
-            transform.position += Vector3.forward * Time.deltaTime * 2;
+            transform.position += transform.forward * Time.deltaTime * movementSpeed * 2;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            transform.position -= Vector3.forward * Time.deltaTime * 2;
+            transform.position -= transform.forward * Time.deltaTime * movementSpeed * 2;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            transform.position -= Vector3.right * Time.deltaTime * 2;
+            transform.position -= transform.right * Time.deltaTime * movementSpeed * 2;
         }
         if (Input.GetKey(KeyCode.D))
         { 
-            transform.position += Vector3.right * Time.deltaTime * 2;
+            transform.position += transform.right * Time.deltaTime * movementSpeed * 2;
         }
-        //if (Input.GetAxis("Mouse X") < 0)
-            transform.Rotate(Vector3.down,turningSpeed * Time.deltaTime * 5);
+        if (Input.GetAxis("Mouse X") < 0)
+            transform.Rotate(Vector3.down,turningSpeed * Time.deltaTime * 2);
 
-        //if (Input.GetAxis("Mouse X") > 0)
-            transform.Rotate(Vector3.up, turningSpeed * Time.deltaTime * 5);
+        if (Input.GetAxis("Mouse X") > 0)
+            transform.Rotate(Vector3.up, turningSpeed * Time.deltaTime * 2);
 
         if (Input.GetKeyDown(KeyCode.Space)&&allowJump)
         {
