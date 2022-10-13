@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class CubeControl : MonoBehaviour
 {
-    private float turningSpeed = 150;
+    public float maxHealth;
+    public float currentHealth;
+    public float damage;
+
+    private float turningSpeed = 360;
     public float movementSpeed = 2.0f;
     bool allowJump = true;
     Rigidbody ourRigidBody;
     Vector3 startPosition;
-
+    public GameObject target;
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
