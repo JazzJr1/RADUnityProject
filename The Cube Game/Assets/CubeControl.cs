@@ -8,7 +8,7 @@ public class CubeControl : MonoBehaviour
     public float currentHealth;
     public float damage;
 
-    private float turningSpeed = 360;
+    private float turningSpeed = 180;
     public float movementSpeed = 2.0f;
     bool allowJump = true;
     Rigidbody ourRigidBody;
@@ -35,19 +35,19 @@ public class CubeControl : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W))
         {
-            transform.position += transform.forward * Time.deltaTime * movementSpeed * 15;
+            transform.position += transform.forward * Time.deltaTime * movementSpeed * 3;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            transform.position -= transform.forward * Time.deltaTime * movementSpeed * 10;
+            transform.position -= transform.forward * Time.deltaTime * movementSpeed * 2;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            transform.position -= transform.right * Time.deltaTime * movementSpeed * 10;
+            transform.position -= transform.right * Time.deltaTime * movementSpeed * 2;
         }
         if (Input.GetKey(KeyCode.D))
         { 
-            transform.position += transform.right * Time.deltaTime * movementSpeed * 10;
+            transform.position += transform.right * Time.deltaTime * movementSpeed * 2;
         }
         if (Input.GetAxis("Mouse X") < 0)
             transform.Rotate(Vector3.down,turningSpeed * Time.deltaTime);
@@ -57,7 +57,7 @@ public class CubeControl : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space)&&allowJump)
         {
-            ourRigidBody.AddForce(Vector3.up * 3000);
+            ourRigidBody.AddForce(Vector3.up * 1200);
             allowJump = false;
         }
         if (Input.GetKeyDown(KeyCode.R))
