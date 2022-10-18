@@ -20,6 +20,10 @@ public class CubeControl : MonoBehaviour
         {
             allowJump = true;
         }
+        if (collision.gameObject.CompareTag("Checkpoint"))
+        {
+            startPosition = transform.position;
+        }
     }
 
     // Start is called before the first frame update
