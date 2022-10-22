@@ -1,19 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CatControl : MonoBehaviour
 {
-    public float maxHealth;
-    public float currentHealth;
-    public float damage;
     bool animOn = true;
-    private float turningSpeed = 180;
-    public float movementSpeed = 2.0f;
+    private float turningSpeed = 300;
+    private int movementSpeed = 8;
     bool allowJump = true;
     Rigidbody ourRigidBody;
     Vector3 startPosition;
-    public int bells;
+    public int bells = 0;
+    public Text bellsText;
     public GameObject cat;
     private void OnCollisionEnter(Collision collision)
     {
@@ -23,15 +23,19 @@ public class CatControl : MonoBehaviour
             animOn = true;
             cat.GetComponent<Animator>().Play("Idle_A");
         }
+
         if (collision.gameObject.CompareTag("Checkpoint"))
         {
             startPosition = transform.position;
+        }
+        if (collision.gameObject.CompareTag("End"))
+        {
+            SceneManager.LoadScene (3);
         }
         if (collision.gameObject.CompareTag("Bell"))
         {
             Destroy(collision.gameObject);
             bells += 1;
-
         }
     }
 
@@ -44,6 +48,7 @@ public class CatControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bellsText.text = bells.ToString();
         ourRigidBody = GetComponent<Rigidbody>();
 
         if (Input.GetKey(KeyCode.W)&&animOn)
@@ -76,7 +81,15 @@ public class CatControl : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W))
         {
-            transform.position += transform.forward * Time.deltaTime * movementSpeed * 3;
+            transform.position += transform.forward * Time.deltaTime * movementSpeed;
+        }
+        if (Input.GetKey(KeyCode.Mouse0))
+        {
+            movementSpeed = 16;
+        }
+        if (Input.GetKeyUp(KeyCode.Mouse0))
+        {
+            movementSpeed = 8;
         }
         if (Input.GetKeyUp(KeyCode.W))
         {
@@ -84,7 +97,7 @@ public class CatControl : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.S))
         {
-            transform.position -= transform.forward * Time.deltaTime * movementSpeed * 2;
+            transform.position -= transform.forward * Time.deltaTime * 4;
         }
         if (Input.GetKeyUp(KeyCode.S))
         {
@@ -92,11 +105,11 @@ public class CatControl : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.A))
         {
-            transform.position -= transform.right * Time.deltaTime * movementSpeed * 2;
+            transform.position -= transform.right * Time.deltaTime * 4;
         }
         if (Input.GetKey(KeyCode.D))
         { 
-            transform.position += transform.right * Time.deltaTime * movementSpeed * 2;
+            transform.position += transform.right * Time.deltaTime * 4;
         }
         if (Input.GetAxis("Mouse X") < 0)
             transform.Rotate(Vector3.down,turningSpeed * Time.deltaTime);
